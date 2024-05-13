@@ -1,8 +1,7 @@
-import React, {memo, useState} from 'react';
-import {Text, TextInput, View} from 'react-native';
-import MainApp from './src/App';
 import {store} from '@redux';
+import React from 'react';
 import {Provider} from 'react-redux';
+import MainApp from './src/App';
 
 function App() {
   return (

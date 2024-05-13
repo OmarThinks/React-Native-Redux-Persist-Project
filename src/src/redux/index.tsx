@@ -1,7 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
+import textInputReducer1 from './features/textInput1/textInputSlice1';
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    textInput1: textInputReducer1,
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

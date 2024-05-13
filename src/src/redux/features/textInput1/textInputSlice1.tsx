@@ -1,5 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {RootState} from '@redux';
 import type {PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 interface TextInputState {
   value: string;
@@ -21,7 +22,8 @@ const textInputSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 const {setTextInput1} = textInputSlice.actions;
+const selectTextInput1 = (state: RootState) => state.textInput1.value;
 
-export default textInputSlice.reducer;
-export {setTextInput1, textInputSlice};
+export {selectTextInput1, setTextInput1, textInputSlice};
 export type {TextInputState};
+export default textInputSlice.reducer;

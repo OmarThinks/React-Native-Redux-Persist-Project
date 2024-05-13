@@ -22,8 +22,8 @@ const textInputSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 const {setTextInput1} = textInputSlice.actions;
-const selectTextInput1 = (state: RootState) => state.textInput1.value;
+const textInputSelector1 = (state: RootState) => state.textInput1.value;
 
-export {selectTextInput1, setTextInput1, textInputSlice};
+export {textInputSelector1, setTextInput1, textInputSlice};
 export type {TextInputState};
 export default textInputSlice.reducer;

@@ -14,16 +14,16 @@ const textInputSlice = createSlice({
   name: 'textInput',
   initialState,
   reducers: {
-    setTextInput1: (state, action: PayloadAction<string>) => {
+    setTextInput2: (state, action: PayloadAction<string>) => {
       state.value = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-const {setTextInput1} = textInputSlice.actions;
-const textInputSelector1 = (state: RootState) => state.textInput1.value;
+const {setTextInput2} = textInputSlice.actions;
+const textInputSelector2 = (state: RootState) => state.textInput2.value;
 
-export {textInputSelector1, setTextInput1, textInputSlice};
+export {textInputSelector2, setTextInput2, textInputSlice};
 export type {TextInputState};
 export default textInputSlice.reducer;

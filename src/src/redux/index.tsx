@@ -1,6 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {persistReducer, persistStore} from 'redux-persist';
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
+} from 'redux-persist';
 import textInputReducer1, {
   setTextInput1,
   textInputSelector1,
@@ -9,12 +18,17 @@ import textInputReducer2, {
   setTextInput2,
   textInputSelector2,
 } from './features/textInput2/textInputSlice2';
-import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
+
+const textInput1Migrate = (state: any) => {
+  console.log(state);
+  return Promise.resolve(state);
+};
 
 const textInput1PersistConfig = {
   storage: AsyncStorage,
   key: 'textInput1',
   version: 1,
+  migrate: textInput1Migrate,
 };
 
 const rootReducer = combineReducers({

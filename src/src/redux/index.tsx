@@ -20,6 +20,7 @@ const persistConfig = {
   storage: AsyncStorage,
   key: 'root',
   version: 1,
+  blacklist: ['textInput2'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -11,19 +11,25 @@ import textInputReducer2, {
 } from './features/textInput2/textInputSlice2';
 import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 
+const textInput1PersistConfig = {
+  storage: AsyncStorage,
+  key: 'textInput1',
+  version: 1,
+};
+
 const rootReducer = combineReducers({
-  textInput1: textInputReducer1,
+  textInput1: persistReducer(textInput1PersistConfig, textInputReducer1),
   textInput2: textInputReducer2,
 });
 
-const persistConfig = {
+const rootPersistConfig = {
   storage: AsyncStorage,
   key: 'root',
   version: 1,
-  blacklist: ['textInput2'],
+  blacklist: ['textInput1', 'textInput2'],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,

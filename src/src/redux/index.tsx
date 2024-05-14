@@ -5,11 +5,15 @@ import {
   PAUSE,
   PERSIST,
   PURGE,
+  PersistConfig,
+  PersistMigrate,
+  PersistedState,
   REGISTER,
   REHYDRATE,
   persistReducer,
   persistStore,
 } from 'redux-persist';
+import type {TextInputState} from './features/textInput1/textInputSlice1';
 import textInputReducer1, {
   setTextInput1,
   textInputSelector1,
@@ -19,12 +23,14 @@ import textInputReducer2, {
   textInputSelector2,
 } from './features/textInput2/textInputSlice2';
 
-const textInput1Migrate = (state: any) => {
-  console.log(state);
+const textInput1Migrate: PersistMigrate = (
+  state: PersistedState & TextInputState,
+) => {
+  console.log(state?.value);
   return Promise.resolve(state);
 };
 
-const textInput1PersistConfig = {
+const textInput1PersistConfig: PersistConfig<TextInputState> = {
   storage: AsyncStorage,
   key: 'textInput1',
   version: 1,

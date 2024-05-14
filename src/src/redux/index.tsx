@@ -9,6 +9,7 @@ import textInputReducer2, {
   setTextInput2,
   textInputSelector2,
 } from './features/textInput2/textInputSlice2';
+import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 
 const rootReducer = combineReducers({
   textInput1: textInputReducer1,
@@ -18,12 +19,21 @@ const rootReducer = combineReducers({
 const persistConfig = {
   storage: AsyncStorage,
   key: 'root',
+  version: 1,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      immutableCheck: {warnAfter: 128},
+      serializableCheck: {
+        warnAfter: 128,
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 const persistor = persistStore(store);

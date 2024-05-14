@@ -1,23 +1,32 @@
-import {configureStore} from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {persistReducer, persistStore} from 'redux-persist';
 import textInputReducer1, {
-  textInputSelector1,
   setTextInput1,
+  textInputSelector1,
 } from './features/textInput1/textInputSlice1';
 import textInputReducer2, {
-  textInputSelector2,
   setTextInput2,
+  textInputSelector2,
 } from './features/textInput2/textInputSlice2';
-import {persistStore, persistReducer} from 'redux-persist';
-import storage from '@react-native-async-storage/async-storage';
 
-const rootReducer = {
+const rootReducer = combineReducers({
   textInput1: textInputReducer1,
   textInput2: textInputReducer2,
+});
+
+const persistConfig = {
+  storage: AsyncStorage,
+  key: 'root',
 };
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
 });
+
+const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 type RootState = ReturnType<typeof store.getState>;
@@ -25,10 +34,11 @@ type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
 
 export {
+  persistor,
+  setTextInput1,
+  setTextInput2,
   store,
   textInputSelector1,
-  setTextInput1,
   textInputSelector2,
-  setTextInput2,
 };
-export type {RootState, AppDispatch};
+export type {AppDispatch, RootState};

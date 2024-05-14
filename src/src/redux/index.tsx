@@ -28,9 +28,9 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      immutableCheck: {warnAfter: 128},
+      //immutableCheck: {warnAfter: 128},
       serializableCheck: {
-        warnAfter: 128,
+        //warnAfter: 128,
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
@@ -38,9 +38,7 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 type AppDispatch = typeof store.dispatch;
 
 export {

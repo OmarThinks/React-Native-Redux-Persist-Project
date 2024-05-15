@@ -1,5 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   FLUSH,
   PAUSE,
@@ -9,15 +8,16 @@ import {
   REHYDRATE,
   persistReducer,
   persistStore,
-} from 'redux-persist';
+} from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import textInputReducer1, {
   setTextInput1,
   textInputSelector1,
-} from './features/textInput1/textInputSlice1';
+} from "./features/textInput1/textInputSlice1";
 import textInputReducer2, {
   setTextInput2,
   textInputSelector2,
-} from './features/textInput2/textInputSlice2';
+} from "./features/textInput2/textInputSlice2";
 
 const rootReducer = combineReducers({
   textInput1: textInputReducer1,
@@ -25,17 +25,17 @@ const rootReducer = combineReducers({
 });
 
 const rootPersistConfig = {
-  storage: AsyncStorage,
-  key: 'root',
+  storage,
+  key: "root",
   version: 1,
-  blacklist: ['textInput1', 'textInput2'],
+  blacklist: ["textInput1", "textInput2"],
 };
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       //immutableCheck: {warnAfter: 128},
       serializableCheck: {
@@ -58,4 +58,4 @@ export {
   textInputSelector1,
   textInputSelector2,
 };
-export type {AppDispatch, RootState};
+export type { AppDispatch, RootState };

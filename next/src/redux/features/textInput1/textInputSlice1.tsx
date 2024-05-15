@@ -1,24 +1,24 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {RootState} from '@redux';
-import type {PayloadAction} from '@reduxjs/toolkit';
-import {createSlice} from '@reduxjs/toolkit';
+import { RootState } from "@redux";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   PersistConfig,
   PersistMigrate,
   PersistedState,
   persistReducer,
-} from 'redux-persist';
+} from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 type TextInputState = {
   value: string;
 };
 
 const initialState: TextInputState = {
-  value: '',
+  value: "",
 };
 
 const textInputSlice = createSlice({
-  name: 'textInput',
+  name: "textInput",
   initialState,
   reducers: {
     setTextInput1: (state, action: PayloadAction<string>) => {
@@ -28,7 +28,7 @@ const textInputSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-const {setTextInput1} = textInputSlice.actions;
+const { setTextInput1 } = textInputSlice.actions;
 const textInputSelector1 = (state: RootState) => state.textInput1.value;
 
 const textInput1Migrate: PersistMigrate = (state: PersistedState) => {
@@ -44,7 +44,7 @@ const textInput1Migrate: PersistMigrate = (state: PersistedState) => {
 
   if (_state === undefined) {
     //newState[key  as keyof TextInputState] = initialState[key as keyof TextInputState]
-    newState = {...newState, ...initialState};
+    newState = { ...newState, ...initialState };
   } else {
     for (const key in initialState) {
       if (key in _state) {
@@ -61,15 +61,15 @@ const textInput1Migrate: PersistMigrate = (state: PersistedState) => {
 };
 
 const textInput1PersistConfig: PersistConfig<TextInputState> = {
-  storage: AsyncStorage,
-  key: 'textInput1',
+  storage,
+  key: "textInput1",
   version: 1,
   migrate: textInput1Migrate,
 };
 
 const textInput1Reducer = persistReducer(
   textInput1PersistConfig,
-  textInputSlice.reducer,
+  textInputSlice.reducer
 );
 
 export {
@@ -79,5 +79,5 @@ export {
   textInputSelector1,
   textInputSlice,
 };
-export type {TextInputState};
+export type { TextInputState };
 export default textInput1Reducer;

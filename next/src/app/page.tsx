@@ -14,8 +14,8 @@ import { PersistGate } from "redux-persist/integration/react";
 export default function Home() {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <main className="flex min-h-screen flex-col items-center justify-between p-24 self-stretch bg-black">
+      <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
+        <main className="flex min-h-screen flex-col items-center justify-between p-6 self-stretch bg-black">
           <div className="self-stretch ">
             <App />
           </div>
@@ -41,7 +41,7 @@ const App = () => {
   );
 
   return (
-    <div className="flex-1 justify-center items-center m-4 gap-[100px] flex flex-col">
+    <div className="flex-1 justify-center items-center m-4 gap-[50px] flex flex-col">
       <TextInputContainer
         header={"Persisted"}
         value={textInput1}
@@ -73,7 +73,7 @@ const TextInputContainer = ({
   return (
     <div className="gap-[10px] self-stretch items-center justify-center flex flex-col">
       <p className="text-[30px] text-white font-bold self-stretch text-center">
-        {header}: <p style={{ color: textColor, display: "inline" }}>{value}</p>
+        {header}: <p style={{ color: textColor }}>{value}</p>
       </p>
       <input
         type="text"
